@@ -1,4 +1,4 @@
-import { ITEMS_QUANTITY_NOT_VALID } from "../constants";
+import { ITEMS_QUANTITY_NOT_VALID } from "../../constants";
 import Customer from "../entities/customer";
 import Order from "../entities/order";
 import OrderItem from "../entities/order_item";

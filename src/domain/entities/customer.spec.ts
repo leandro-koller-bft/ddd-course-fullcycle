@@ -2,7 +2,7 @@ import {
   ADDRESS_IS_MANDATORY,
   ID_IS_REQUIRED,
   NAME_IS_REQUIRED,
-} from "../constants";
+} from "../../constants";
 import Address from "./address";
 import Customer from "./customer";
 

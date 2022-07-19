@@ -4,7 +4,7 @@ import {
   ITEMS_QUANTITY_NOT_VALID,
   PRICE_IS_NEGATIVE,
   QUANTITY_IS_NEGATIVE_OR_ZERO,
-} from "../constants";
+} from "../../constants";
 import Order from "./order";
 import OrderItem from "./order_item";
 

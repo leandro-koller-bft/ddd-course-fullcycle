@@ -2,7 +2,7 @@ import {
   ID_IS_REQUIRED,
   NAME_IS_REQUIRED,
   PRICE_IS_NEGATIVE,
-} from "../constants";
+} from "../../constants";
 
 export default class Product {
   private _id: string;
