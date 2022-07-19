@@ -6,8 +6,9 @@ export default class ProductModel extends Model {
   @Column
   declare id: string;
 
-  @Column({ allowNul: False })
+  @Column({ allowNull: false })
   declare name: string;
 
+  @Column({ allowNull: false })
   declare price: number;
 }
