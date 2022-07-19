@@ -1,4 +1,8 @@
-import { ADDRESS_IS_MANDATORY, ID_IS_REQUIRED, NAME_IS_REQUIRED } from "../constants";
+import {
+  ADDRESS_IS_MANDATORY,
+  ID_IS_REQUIRED,
+  NAME_IS_REQUIRED,
+} from "../constants";
 import Address from "./address";
 import Customer from "./customer";
 
@@ -52,5 +56,16 @@ describe("Customer unit tests", () => {
       let customer = new Customer("123", "John");
       customer.activate();
     }).toThrowError(ADDRESS_IS_MANDATORY);
+  });
+
+  it("should add reward points", () => {
+    const customer = new Customer("1", "Customer 1");
+    expect(customer.rewardPoints).toBe(0);
+
+    customer.reward(10);
+    expect(customer.rewardPoints).toBe(10);
+
+    customer.reward(5);
+    expect(customer.rewardPoints).toBe(15);
   });
 });
