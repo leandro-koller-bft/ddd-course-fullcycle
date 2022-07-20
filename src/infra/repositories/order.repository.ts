@@ -1,4 +1,7 @@
+import { where } from "sequelize/types";
+import { ORDER_NOT_FOUND } from "../../constants";
 import Order from "../../domain/entities/order";
+import OrderItem from "../../domain/entities/order_item";
 import IOrderRepository from "../../domain/repository-interfaces/order-repository.interface";
 import OrderItemModel from "../db/sequelize/models/order-item.model";
 import OrderModel from "../db/sequelize/models/order.model";
@@ -70,10 +73,45 @@ export default class OrderRepository implements IOrderRepository {
       console.log(err);
     }
   }
-  find(id: string): Promise<Order> {
-    throw new Error("Method not implemented.");
+
+  async find(id: string): Promise<Order> {
+    try {
+      const order = await OrderModel.findOne({
+        where: { id },
+        include: [{ model: OrderItemModel }],
+      });
+
+      return new Order(
+        order.id,
+        order.customer_id,
+        order.items.map(
+          (i) => new OrderItem(i.id, i.name, i.price, i.product_id, i.quantity)
+        )
+      );
+    } catch (err) {
+      throw new Error(ORDER_NOT_FOUND);
+    }
   }
-  findAll(): Promise<Order[]> {
-    throw new Error("Method not implemented.");
+
+  async findAll(): Promise<Order[]> {
+    try {
+      const orders = await OrderModel.findAll({
+        include: { model: OrderItemModel },
+      });
+
+      return orders.map(
+        (o) =>
+          new Order(
+            o.id,
+            o.customer_id,
+            o.items.map(
+              (i) =>
+                new OrderItem(i.id, i.name, i.price, i.product_id, i.quantity)
+            )
+          )
+      );
+    } catch (err) {
+      console.log(err);
+    }
   }
 }
