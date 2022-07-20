@@ -6,6 +6,6 @@ export default class SendEmailWhenProductIsCreatedHandler
   implements IEventHandler<ProductCratedEvent>
 {
   handle(event: EventInterface): void {
-    console.log('sanding email to...');
+    console.log('sending email to...');
   }
 }

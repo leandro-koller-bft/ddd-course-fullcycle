@@ -2,6 +2,10 @@ import { Sequelize } from "sequelize-typescript";
 import { CUSTOMER_NOT_FOUND } from "../../constants";
 import Address from "../../domain/entities/address";
 import Customer from "../../domain/entities/customer";
+import SendFirstMessageWhenCustomerIsCreated from "../../domain/events/customer/handlers/send-first-message-when-created.handler";
+import SendSecondMessageWhenCustomerIsCreated from "../../domain/events/customer/handlers/send-second-message-when-created.handler";
+import { CUSTOMER_CREATED_EVENT } from "../../domain/events/names";
+import EventDispatcher from "../../domain/events/shared/event-dispatcher";
 import CustomerModel from "../db/sequelize/models/customer.model";
 import CustomerRepository from "./customer.repository";
 
@@ -143,4 +147,46 @@ describe("Product repository tests", () => {
     expect(customers).toContainEqual(customer)
     expect(customers).toContainEqual(customer2)
   });
+
+  describe("Events-related tests", () => {
+
+    it("should notify when a customer is created", async () => {
+      const eventDispatcher = new EventDispatcher();
+      const firstEventHandler = new SendFirstMessageWhenCustomerIsCreated();
+      const secondEventHandler = new SendSecondMessageWhenCustomerIsCreated();
+      const spyFirstEventHandler = jest.spyOn(firstEventHandler, "handle");
+      const spySecondEventHandler = jest.spyOn(secondEventHandler, "handle");
+
+      eventDispatcher.register(CUSTOMER_CREATED_EVENT, firstEventHandler);
+      eventDispatcher.register(CUSTOMER_CREATED_EVENT, secondEventHandler);
+
+      expect(eventDispatcher.getEventHandlers[CUSTOMER_CREATED_EVENT].length).toBe(
+        2
+      );
+
+      const customerRepository = new CustomerRepository();
+      const customer = new Customer("c1", "Customer 1");
+      const address = new Address("Street 1", 1, "1", "City 1");
+      customer.changeAddress(address);
+  
+      await customerRepository.create(customer);
+      const customerModel = await CustomerModel.findOne({
+        where: { id: customer.id },
+      });
+  
+      expect(customerModel.toJSON()).toStrictEqual({
+        id: customer.id,
+        name: customer.name,
+        active: customer.isActive(),
+        rewardPoints: customer.rewardPoints,
+        street: address.street,
+        number: address.number,
+        zip: address.zip,
+        city: address.city,
+      });
+
+      expect(spyFirstEventHandler).toHaveBeenCalled();
+      expect(spySecondEventHandler).toHaveBeenCalled();
+    });
+  })
 });

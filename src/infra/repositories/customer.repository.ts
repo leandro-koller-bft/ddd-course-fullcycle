@@ -5,17 +5,23 @@ import ICustomerRepository from "../../domain/repository-interfaces/customer-rep
 import CustomerModel from "../db/sequelize/models/customer.model";
 
 export default class CustomerRepository implements ICustomerRepository {
-  async create(entity: Customer): Promise<void> {
-    await CustomerModel.create({
-      id: entity.id,
-      name: entity.name,
-      street: entity.address?.street,
-      number: entity.address?.number,
-      zip: entity.address?.zip,
-      city: entity.address?.city,
-      active: entity.isActive(),
-      rewardPoints: entity.rewardPoints,
-    });
+  async create(
+    entity: Customer,
+  ): Promise<void> {
+    try {
+      await CustomerModel.create({
+        id: entity.id,
+        name: entity.name,
+        street: entity.address?.street,
+        number: entity.address?.number,
+        zip: entity.address?.zip,
+        city: entity.address?.city,
+        active: entity.isActive(),
+        rewardPoints: entity.rewardPoints,
+      });
+    } catch(err) {
+      console.log(err);
+    }
   }
 
   async update(entity: Customer): Promise<void> {
@@ -70,7 +76,9 @@ export default class CustomerRepository implements ICustomerRepository {
     return customerModels.map((cm) => {
       const customer = new Customer(cm.id, cm.name);
       if (!!cm.street) {
-        customer.changeAddress(new Address(cm.street, cm.number, cm.zip, cm.city));
+        customer.changeAddress(
+          new Address(cm.street, cm.number, cm.zip, cm.city)
+        );
       }
 
       return customer;
