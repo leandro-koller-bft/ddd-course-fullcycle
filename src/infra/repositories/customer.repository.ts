@@ -1,7 +1,7 @@
 import { CUSTOMER_NOT_FOUND } from "../../constants";
 import Address from "../../domain/entities/address";
 import Customer from "../../domain/entities/customer";
-import ICustomerRepository from "../../domain/repositories/customer-repository.interface";
+import ICustomerRepository from "../../domain/repository-interfaces/customer-repository.interface";
 import CustomerModel from "../db/sequelize/models/customer.model";
 
 export default class CustomerRepository implements ICustomerRepository {
