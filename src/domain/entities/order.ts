@@ -5,6 +5,7 @@ import {
   PRICE_IS_NEGATIVE,
   QUANTITY_IS_NEGATIVE_OR_ZERO,
 } from "../../constants";
+import customer from "./customer";
 import OrderItem from "./order_item";
 
 export default class Order {
@@ -45,6 +46,24 @@ export default class Order {
 
   total(): number {
     return this._items.reduce((acc, item) => acc + item.total(), 0);
+  }
+
+  changeCustomer(customerId: string) {
+    this._customerId = customerId;
+  }
+
+  addItem(item: OrderItem) {
+    this._items.push(item);
+  }
+
+  changeItem(item: OrderItem) {
+    this._items = this._items.map((i) => {
+      if (i.id === item.id) {
+        return item;
+      }
+
+      return i;
+    });
   }
 
   get id(): string {

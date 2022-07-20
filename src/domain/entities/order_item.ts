@@ -23,6 +23,10 @@ export default class OrderItem {
     return this._price * this._quantity;
   }
 
+  changeQuantity(q: number) {
+    this._quantity = q;
+  }
+
   get id(): string {
     return this._id;
   }
