@@ -1,6 +1,7 @@
+import ICustomer from "./customer.interface";
 import Address from "./value-objects/address";
 
-export default class Customer {
+export default class Customer implements ICustomer {
   private _id: string;
   private _name: string;
   private _address!: Address;

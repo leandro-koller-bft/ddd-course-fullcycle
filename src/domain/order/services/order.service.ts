@@ -1,7 +1,7 @@
 import Order from "../entities/order";
 import { v4 as uuid } from "uuid";
 import Customer from "../../customer/entities/customer";
-import OrderItem from "../entities/order_item";
+import OrderItem from "../entities/order-item";
 import { ITEMS_QUANTITY_NOT_VALID } from "../../../constants";
 
 export default class OrderService {

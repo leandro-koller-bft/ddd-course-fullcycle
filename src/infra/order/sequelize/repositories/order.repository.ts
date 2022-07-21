@@ -1,6 +1,6 @@
 import { ORDER_NOT_FOUND } from "../../../../constants";
 import Order from "../../../../domain/order/entities/order";
-import OrderItem from "../../../../domain/order/entities/order_item";
+import OrderItem from "../../../../domain/order/entities/order-item";
 import IOrderRepository from "../../../../domain/order/repositories/order-repository.interface";
 import OrderItemModel from "../models/order-item.model";
 import OrderModel from "../models/order.model";

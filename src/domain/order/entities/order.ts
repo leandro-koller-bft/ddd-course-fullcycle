@@ -5,7 +5,7 @@ import {
   PRICE_IS_NEGATIVE,
   QUANTITY_IS_NEGATIVE_OR_ZERO,
 } from "../../../constants";
-import OrderItem from "./order_item";
+import OrderItem from "./order-item";
 
 export default class Order {
   private _id: string;

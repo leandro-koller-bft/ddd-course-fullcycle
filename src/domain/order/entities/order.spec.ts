@@ -6,7 +6,7 @@ import {
   QUANTITY_IS_NEGATIVE_OR_ZERO,
 } from "../../../constants";
 import Order from "./order";
-import OrderItem from "./order_item";
+import OrderItem from "./order-item";
 
 describe("Customer unit tests", () => {
   it("should throw an error when id is empty", () => {

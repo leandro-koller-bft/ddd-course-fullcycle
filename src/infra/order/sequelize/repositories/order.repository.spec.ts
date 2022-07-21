@@ -3,7 +3,7 @@ import { ORDER_NOT_FOUND } from "../../../../constants";
 import Customer from "../../../../domain/customer/entities/customer";
 import Address from "../../../../domain/customer/entities/value-objects/address";
 import Order from "../../../../domain/order/entities/order";
-import OrderItem from "../../../../domain/order/entities/order_item";
+import OrderItem from "../../../../domain/order/entities/order-item";
 import Product from "../../../../domain/product/entities/product";
 import CustomerModel from "../../../customer/sequelize/models/customer.model";
 import OrderItemModel from "../models/order-item.model";
