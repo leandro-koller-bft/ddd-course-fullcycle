@@ -7,14 +7,14 @@ import {
 } from "./list.customer.dto";
 
 export default class ListCustomerUseCase implements ICustomerUseCase {
-  private customerRepository: ICustomerRepository;
+  readonly repository: ICustomerRepository;
   
   constructor(customerRepository: ICustomerRepository) {
-    this.customerRepository = customerRepository;
+    this.repository = customerRepository;
   }
 
   async execute(input: InputListCustomerDto): Promise<OutputListCustomerDto> {
-    const customers = await this.customerRepository.findAll();
+    const customers = await this.repository.findAll();
     
     return OutputMapper.toOutput(customers);
   }

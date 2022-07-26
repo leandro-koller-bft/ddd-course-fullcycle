@@ -8,10 +8,10 @@ import {
 } from "./create.customer.dto";
 
 export default class CreateCustomerUseCase implements ICustomerUseCase {
-  private customerRepository: ICustomerRepository;
+  readonly repository: ICustomerRepository;
 
-  constructor(customerRepository: ICustomerRepository) {
-    this.customerRepository = customerRepository;
+  constructor(repository: ICustomerRepository) {
+    this.repository = repository;
   }
 
   async execute(
@@ -27,7 +27,7 @@ export default class CreateCustomerUseCase implements ICustomerUseCase {
       )
     );
 
-    await this.customerRepository.create(customer);
+    await this.repository.create(customer);
 
     return {
       id: customer.id,

@@ -7,16 +7,16 @@ import {
 } from "./update.customer.dto";
 
 export default class UpdateCustomerUseCase implements ICustomerUseCase {
-  private customerRepository: ICustomerRepository;
+  readonly repository: ICustomerRepository;
 
-  constructor(customerRepository: ICustomerRepository) {
-    this.customerRepository = customerRepository;
+  constructor(repository: ICustomerRepository) {
+    this.repository = repository;
   }
 
   async execute(
     input: InputUpdateCustomerDto
   ): Promise<OutputUpdateCustomerDto> {
-    const customer = await this.customerRepository.find(input.id);
+    const customer = await this.repository.find(input.id);
 
     customer.changeName(input.name);
     customer.changeAddress(
@@ -27,7 +27,7 @@ export default class UpdateCustomerUseCase implements ICustomerUseCase {
         input.address.city
       )
     );
-    await this.customerRepository.update(customer);
+    await this.repository.update(customer);
 
     return {
       id: input.id,

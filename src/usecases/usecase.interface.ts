@@ -1,3 +1,4 @@
 export default interface UseCaseInterface<T> {
-  execute: (inputDto: any) => Promise<any>;
+  readonly repository: T
+  execute(inputDto: any): Promise<any>;
 }

@@ -9,14 +9,14 @@ import {
 } from "./find.customer.dto";
 
 export default class FindCustomerUseCase implements ICustomerUseCase {
-  private customerRepository: ICustomerRepository;
+  readonly repository: ICustomerRepository;
 
-  constructor(customerRepository: ICustomerRepository) {
-    this.customerRepository = customerRepository;
+  constructor(repository: ICustomerRepository) {
+    this.repository = repository;
   }
 
   async execute(input: InputFindCustomerDto): Promise<OutputFindCustomerDto> {
-    const customer = await this.customerRepository.find(input.id);
+    const customer = await this.repository.find(input.id);
 
     return {
       id: customer.id,

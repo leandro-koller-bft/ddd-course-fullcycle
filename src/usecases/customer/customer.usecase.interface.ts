@@ -1,4 +1,4 @@
-import ICustomer from "../../domain/customer/entities/customer.interface";
+import ICustomerRepository from "../../domain/customer/repositories/customer-repository.interface";
 import UseCaseInterface from "../usecase.interface";
 
-export default interface ICustomerUseCase extends UseCaseInterface<ICustomer> {}
+export default interface ICustomerUseCase extends UseCaseInterface<ICustomerRepository> {}
