@@ -1,3 +1,4 @@
+import { ADDRESS_IS_MANDATORY, ID_IS_REQUIRED, NAME_IS_REQUIRED } from "../../../constants";
 import ICustomer from "./customer.interface";
 import Address from "./value-objects/address";
 
@@ -16,11 +17,11 @@ export default class Customer implements ICustomer {
 
   validate() {
     if (this._id.length === 0) {
-      throw new Error("Id is required");
+      throw new Error(ID_IS_REQUIRED);
     }
 
     if (this._name.length === 0) {
-      throw new Error("Name is required");
+      throw new Error(NAME_IS_REQUIRED);
     }
   }
 
@@ -35,7 +36,7 @@ export default class Customer implements ICustomer {
 
   activate() {
     if (this._address === undefined) {
-      throw new Error("Address is mandatory to activate a customer");
+      throw new Error(ADDRESS_IS_MANDATORY);
     }
 
     this._active = true;

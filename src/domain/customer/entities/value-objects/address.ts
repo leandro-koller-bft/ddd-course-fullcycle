@@ -1,3 +1,5 @@
+import { CITY_IS_REQUIRED, NUMBER_IS_REQUIRED, STREET_IS_REQUIRED, ZIP_IS_REQUIRED } from "../../../../constants";
+
 export default class Address {
   private _street: string;
   private _number: number;
@@ -14,19 +16,19 @@ export default class Address {
 
   validate() {
     if (this._street.length === 0) {
-      throw new Error("Street is required");
+      throw new Error(STREET_IS_REQUIRED);
     }
 
     if (this._number === 0) {
-      throw new Error("Number is required");
+      throw new Error(NUMBER_IS_REQUIRED);
     }
 
     if (this._zip.length === 0) {
-      throw new Error("Zip is required");
+      throw new Error(ZIP_IS_REQUIRED);
     }
 
     if (this._city.length === 0) {
-      throw new Error("City is required");
+      throw new Error(CITY_IS_REQUIRED);
     }
   }
 

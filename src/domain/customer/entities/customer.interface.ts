@@ -7,4 +7,5 @@ export default interface ICustomer {
   get rewardPoints(): number;
 
   changeAddress: (address: Address) => void;
+  changeName: (name: string) => void;
 }

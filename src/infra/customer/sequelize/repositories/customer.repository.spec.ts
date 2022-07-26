@@ -1,10 +1,7 @@
 import { Sequelize } from "sequelize-typescript";
-import { CUSTOMER_CREATED_EVENT, CUSTOMER_NOT_FOUND } from "../../../../constants";
-import EventDispatcher from "../../../../domain/@shared/events/event-dispatcher";
+import { CUSTOMER_NOT_FOUND } from "../../../../constants";
 import Customer from "../../../../domain/customer/entities/customer";
 import Address from "../../../../domain/customer/entities/value-objects/address";
-import SendFirstMessageWhenCustomerIsCreated from "../../../../domain/customer/events/handlers/send-first-message-when-created.handler";
-import SendSecondMessageWhenCustomerIsCreated from "../../../../domain/customer/events/handlers/send-second-message-when-created.handler";
 import CustomerModel from "../models/customer.model";
 import CustomerRepository from "./customer.repository";
 
@@ -147,45 +144,44 @@ describe("Product repository tests", () => {
     expect(customers).toContainEqual(customer2)
   });
 
-  describe("Events-related tests", () => {
+  // describe("Events-related tests", () => {
+  //   it("should notify when a customer is created", async () => {
+  //     const eventDispatcher = new EventDispatcher();
+  //     const firstEventHandler = new SendFirstMessageWhenCustomerIsCreated();
+  //     const secondEventHandler = new SendSecondMessageWhenCustomerIsCreated();
+  //     const spyFirstEventHandler = jest.spyOn(firstEventHandler, "handle");
+  //     const spySecondEventHandler = jest.spyOn(secondEventHandler, "handle");
 
-    it("should notify when a customer is created", async () => {
-      const eventDispatcher = new EventDispatcher();
-      const firstEventHandler = new SendFirstMessageWhenCustomerIsCreated();
-      const secondEventHandler = new SendSecondMessageWhenCustomerIsCreated();
-      const spyFirstEventHandler = jest.spyOn(firstEventHandler, "handle");
-      const spySecondEventHandler = jest.spyOn(secondEventHandler, "handle");
+  //     eventDispatcher.register(CUSTOMER_CREATED_EVENT, firstEventHandler);
+  //     eventDispatcher.register(CUSTOMER_CREATED_EVENT, secondEventHandler);
 
-      eventDispatcher.register(CUSTOMER_CREATED_EVENT, firstEventHandler);
-      eventDispatcher.register(CUSTOMER_CREATED_EVENT, secondEventHandler);
+  //     expect(eventDispatcher.getEventHandlers[CUSTOMER_CREATED_EVENT].length).toBe(
+  //       2
+  //     );
 
-      expect(eventDispatcher.getEventHandlers[CUSTOMER_CREATED_EVENT].length).toBe(
-        2
-      );
-
-      const customerRepository = new CustomerRepository();
-      const customer = new Customer("c1", "Customer 1");
-      const address = new Address("Street 1", 1, "1", "City 1");
-      customer.changeAddress(address);
+  //     const customerRepository = new CustomerRepository();
+  //     const customer = new Customer("c1", "Customer 1");
+  //     const address = new Address("Street 1", 1, "1", "City 1");
+  //     customer.changeAddress(address);
   
-      await customerRepository.create(customer);
-      const customerModel = await CustomerModel.findOne({
-        where: { id: customer.id },
-      });
+  //     await customerRepository.create(customer);
+  //     const customerModel = await CustomerModel.findOne({
+  //       where: { id: customer.id },
+  //     });
   
-      expect(customerModel.toJSON()).toStrictEqual({
-        id: customer.id,
-        name: customer.name,
-        active: customer.isActive(),
-        rewardPoints: customer.rewardPoints,
-        street: address.street,
-        number: address.number,
-        zip: address.zip,
-        city: address.city,
-      });
+  //     expect(customerModel.toJSON()).toStrictEqual({
+  //       id: customer.id,
+  //       name: customer.name,
+  //       active: customer.isActive(),
+  //       rewardPoints: customer.rewardPoints,
+  //       street: address.street,
+  //       number: address.number,
+  //       zip: address.zip,
+  //       city: address.city,
+  //     });
 
-      expect(spyFirstEventHandler).toHaveBeenCalled();
-      expect(spySecondEventHandler).toHaveBeenCalled();
-    });
-  })
+  //     expect(spyFirstEventHandler).toHaveBeenCalled();
+  //     expect(spySecondEventHandler).toHaveBeenCalled();
+  //   });
+  // })
 });
