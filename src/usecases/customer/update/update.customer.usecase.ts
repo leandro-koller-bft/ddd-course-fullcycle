@@ -13,26 +13,23 @@ export default class UpdateCustomerUseCase implements ICustomerUseCase {
     this.repository = repository;
   }
 
-  async execute(
-    input: InputUpdateCustomerDto
-  ): Promise<OutputUpdateCustomerDto> {
-    const customer = await this.repository.find(input.id);
+  async execute({
+    id,
+    name,
+    address,
+  }: InputUpdateCustomerDto): Promise<OutputUpdateCustomerDto> {
+    const customer = await this.repository.find(id);
 
-    customer.changeName(input.name);
+    customer.changeName(name);
     customer.changeAddress(
-      new Address(
-        input.address.street,
-        input.address.number,
-        input.address.zip,
-        input.address.city
-      )
+      new Address(address.street, address.number, address.zip, address.city)
     );
     await this.repository.update(customer);
 
     return {
-      id: input.id,
-      name: input.name,
-      address: input.address,
+      id: id,
+      name: name,
+      address: address,
     };
   }
 }

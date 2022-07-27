@@ -15,8 +15,8 @@ export default class FindCustomerUseCase implements ICustomerUseCase {
     this.repository = repository;
   }
 
-  async execute(input: InputFindCustomerDto): Promise<OutputFindCustomerDto> {
-    const customer = await this.repository.find(input.id);
+  async execute({ id }: InputFindCustomerDto): Promise<OutputFindCustomerDto> {
+    const customer = await this.repository.find(id);
 
     return {
       id: customer.id,

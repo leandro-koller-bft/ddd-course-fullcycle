@@ -13,7 +13,7 @@ export default class ListCustomerUseCase implements ICustomerUseCase {
     this.repository = customerRepository;
   }
 
-  async execute(input: InputListCustomerDto): Promise<OutputListCustomerDto> {
+  async execute({}: InputListCustomerDto): Promise<OutputListCustomerDto> {
     const customers = await this.repository.findAll();
     
     return OutputMapper.toOutput(customers);

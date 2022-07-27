@@ -1,3 +1,4 @@
+import { PRODUCT_NOT_FOUND } from "../../../../constants";
 import Product from "../../../../domain/product/entities/product";
 import IProductRepository from "../../../../domain/product/repositories/product-repository.interface";
 import ProductModel from "../models/product.model";
@@ -26,9 +27,19 @@ export default class ProductRepository implements IProductRepository {
   }
 
   async find(id: string): Promise<Product> {
-    const productModel = await ProductModel.findOne({ where: { id } });
+    try {
+      const productModel = await ProductModel.findOne({ where: { id } });
 
-    return new Product(productModel.id, productModel.name, productModel.price);
+      return new Product(
+        productModel.id,
+        productModel.name,
+        productModel.price
+      );
+    } catch (err) {
+      console.log(err);
+
+      throw new Error(PRODUCT_NOT_FOUND);
+    }
   }
 
   async findAll(): Promise<Product[]> {

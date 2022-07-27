@@ -14,17 +14,13 @@ export default class CreateCustomerUseCase implements ICustomerUseCase {
     this.repository = repository;
   }
 
-  async execute(
-    input: InputCreateCustomerDto
-  ): Promise<OutputCreateCustomerDto> {
+  async execute({
+    name,
+    address,
+  }: InputCreateCustomerDto): Promise<OutputCreateCustomerDto> {
     const customer = CustomerFactory.createWithAddress(
-      input.name,
-      new Address(
-        input.address.street,
-        input.address.number,
-        input.address.zip,
-        input.address.city
-      )
+      name,
+      new Address(address.street, address.number, address.zip, address.city)
     );
 
     await this.repository.create(customer);

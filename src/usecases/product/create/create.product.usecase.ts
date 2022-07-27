@@ -13,10 +13,14 @@ export default class CreateProductUseCase implements IProductUseCase {
     this.repository = repository;
   }
 
-  async execute(input: InputCreateProductDto): Promise<OutputCreateProductDto> {
-    const product = ProductFactory.create(input.type, input.name, input.price);
+  async execute({
+    type,
+    name,
+    price,
+  }: InputCreateProductDto): Promise<OutputCreateProductDto> {
+    const product = ProductFactory.create(type, name, price);
 
-    await this.repository.create(product)
+    await this.repository.create(product);
 
     return {
       id: product.id,
