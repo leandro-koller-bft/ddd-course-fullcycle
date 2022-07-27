@@ -1,3 +1,4 @@
+import Notification from "../../@shared/notification/notification";
 import Address from "./value-objects/address";
 
 export default interface ICustomer {
@@ -8,4 +9,6 @@ export default interface ICustomer {
 
   changeAddress: (address: Address) => void;
   changeName: (name: string) => void;
+
+  readonly notification: Notification;
 }

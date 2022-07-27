@@ -1,11 +1,10 @@
 import {
   ADDRESS_IS_MANDATORY,
   CUSTOMER_CONTEXT,
-  ID_IS_REQUIRED,
-  NAME_IS_REQUIRED,
 } from "../../../constants";
 import Entity from "../../@shared/entity/entity.abstract";
 import NotificationError from "../../@shared/notification/notification.error";
+import CustomerValidatorFactory from "../factory/customer.validator.factory";
 import ICustomer from "./customer.interface";
 import Address from "./value-objects/address";
 
@@ -30,19 +29,7 @@ export default class Customer extends Entity implements ICustomer {
   }
 
   validate() {
-    if (this.id.length === 0) {
-      this.notification.addError({
-        context: CUSTOMER_CONTEXT,
-        message: ID_IS_REQUIRED,
-      });
-    }
-
-    if (this._name.length === 0) {
-      this.notification.addError({
-        context: CUSTOMER_CONTEXT,
-        message: NAME_IS_REQUIRED,
-      });
-    }
+    CustomerValidatorFactory.create().validate(this)
   }
 
   changeName(name: string) {
