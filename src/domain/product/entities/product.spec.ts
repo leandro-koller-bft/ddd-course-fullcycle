@@ -2,6 +2,7 @@ import {
   ID_IS_REQUIRED,
   NAME_IS_REQUIRED,
   PRICE_IS_NEGATIVE,
+  PRODUCT_CONTEXT,
 } from "../../../constants";
 import Product from "./product";
 
@@ -16,6 +17,14 @@ describe("Customer unit tests", () => {
     expect(() => {
       const product = new Product("123", "", 100);
     }).toThrowError(NAME_IS_REQUIRED);
+  });
+
+  it("should throw two errors when id and name is empty", () => {
+    expect(() => {
+      let customer = new Product("", "", 1);
+    }).toThrowError(
+      `${PRODUCT_CONTEXT}: ${ID_IS_REQUIRED}, ${PRODUCT_CONTEXT}: ${NAME_IS_REQUIRED}`
+    );
   });
 
   it("should throw an error when price is negative", () => {

@@ -25,3 +25,4 @@ export const CUSTOMER_CHANGED_ADDRESS_EVENT = "CustomerChangedAddressEvent";
 
 // notification contexts
 export const CUSTOMER_CONTEXT = "customer";
+export const PRODUCT_CONTEXT = "product";

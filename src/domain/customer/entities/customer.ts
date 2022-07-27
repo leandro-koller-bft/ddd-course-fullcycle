@@ -20,9 +20,12 @@ export default class Customer extends Entity implements ICustomer {
     this._id = id;
     this._name = name;
     this.validate();
+    this.checkErrors();
+  }
 
+  checkErrors() {
     if (this.notification.hasErrors(CUSTOMER_CONTEXT)) {
-      throw new NotificationError(this.notification.errors)
+      throw new NotificationError(this.notification.errors);
     }
   }
 
@@ -53,7 +56,11 @@ export default class Customer extends Entity implements ICustomer {
 
   activate() {
     if (this._address === undefined) {
-      throw new Error(ADDRESS_IS_MANDATORY);
+      this.notification.addError({
+        context: CUSTOMER_CONTEXT,
+        message: ADDRESS_IS_MANDATORY,
+      });
+      return this.checkErrors();
     }
 
     this._active = true;
