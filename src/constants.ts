@@ -10,6 +10,7 @@ export const STREET_IS_REQUIRED = "Street is required";
 export const NUMBER_IS_REQUIRED = "Number is required";
 export const ZIP_IS_REQUIRED = "Zip is required";
 export const CITY_IS_REQUIRED = "City is required";
+export const PRODUCT_NOT_FOUND = "Product not found"
 export const QUANTITY_IS_NEGATIVE_OR_ZERO =
   "Quantity must be greater than zero";
 export const ITEMS_QUANTITY_NOT_VALID =

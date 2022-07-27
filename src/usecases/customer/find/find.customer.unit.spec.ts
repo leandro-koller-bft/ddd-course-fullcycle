@@ -18,8 +18,8 @@ const mockRepository = () => ({
 
 describe("Test find  a customer use case", () => {
   it("should find a customer", async () => {
-    const customerRepository = mockRepository();
-    const useCase = new FindCustomerUseCase(customerRepository);
+    const repository = mockRepository();
+    const useCase = new FindCustomerUseCase(repository);
 
     const input = { id };
     const output = {
