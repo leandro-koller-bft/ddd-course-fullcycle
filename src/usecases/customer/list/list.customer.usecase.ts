@@ -20,7 +20,6 @@ export default class ListCustomerUseCase implements ICustomerUseCase {
   }
 }
 
-
 class OutputMapper {
   static toOutput(customer: ICustomer[]): OutputListCustomerDto {
     return {
