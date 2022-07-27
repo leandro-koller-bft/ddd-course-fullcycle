@@ -39,27 +39,4 @@ describe("Unit Test update customer use case", () => {
       address: input.address,
     });
   });
-
-  it("should throw an error when name is missing", async () => {
-    const customerRepository = mockRepository();
-    const useCase = new UpdateCustomerUseCase(customerRepository);
-
-    input.name = "";
-
-    expect(async () => {
-      await useCase.execute(input);
-    }).rejects.toThrow(NAME_IS_REQUIRED);
-  });
-
-  it("should throw an error when street is missing", async () => {
-    const customerRepository = mockRepository();
-    const useCase = new UpdateCustomerUseCase(customerRepository);
-
-    input.name = name;
-    input.address.street = "";
-
-    expect(async () => {
-      await useCase.execute(input);
-    }).rejects.toThrow(STREET_IS_REQUIRED);
-  });
 });

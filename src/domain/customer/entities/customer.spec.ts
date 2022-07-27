@@ -1,5 +1,6 @@
 import {
   ADDRESS_IS_MANDATORY,
+  CUSTOMER_CONTEXT,
   ID_IS_REQUIRED,
   NAME_IS_REQUIRED,
 } from "../../../constants";
@@ -17,6 +18,14 @@ describe("Customer unit tests", () => {
     expect(() => {
       let customer = new Customer("123", "");
     }).toThrowError(NAME_IS_REQUIRED);
+  });
+
+  it("should throw two errors when id and name is empty", () => {
+    expect(() => {
+      let customer = new Customer("", "");
+    }).toThrowError(
+      `${CUSTOMER_CONTEXT}: ${ID_IS_REQUIRED}, ${CUSTOMER_CONTEXT}: ${NAME_IS_REQUIRED}`
+    );
   });
 
   it("should change name", () => {

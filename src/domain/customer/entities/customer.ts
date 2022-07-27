@@ -1,27 +1,44 @@
-import { ADDRESS_IS_MANDATORY, ID_IS_REQUIRED, NAME_IS_REQUIRED } from "../../../constants";
+import {
+  ADDRESS_IS_MANDATORY,
+  CUSTOMER_CONTEXT,
+  ID_IS_REQUIRED,
+  NAME_IS_REQUIRED,
+} from "../../../constants";
+import Entity from "../../@shared/entity/entity.abstract";
+import NotificationError from "../../@shared/notification/notification.error";
 import ICustomer from "./customer.interface";
 import Address from "./value-objects/address";
 
-export default class Customer implements ICustomer {
-  private _id: string;
+export default class Customer extends Entity implements ICustomer {
   private _name: string;
   private _address!: Address;
   private _active: boolean = false;
   private _rewardPoints: number = 0;
 
   constructor(id: string, name: string) {
+    super();
     this._id = id;
     this._name = name;
     this.validate();
+
+    if (this.notification.hasErrors(CUSTOMER_CONTEXT)) {
+      throw new NotificationError(this.notification.errors)
+    }
   }
 
   validate() {
-    if (this._id.length === 0) {
-      throw new Error(ID_IS_REQUIRED);
+    if (this.id.length === 0) {
+      this.notification.addError({
+        context: CUSTOMER_CONTEXT,
+        message: ID_IS_REQUIRED,
+      });
     }
 
     if (this._name.length === 0) {
-      throw new Error(NAME_IS_REQUIRED);
+      this.notification.addError({
+        context: CUSTOMER_CONTEXT,
+        message: NAME_IS_REQUIRED,
+      });
     }
   }
 

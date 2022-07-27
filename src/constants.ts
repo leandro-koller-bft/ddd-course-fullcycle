@@ -10,7 +10,7 @@ export const STREET_IS_REQUIRED = "Street is required";
 export const NUMBER_IS_REQUIRED = "Number is required";
 export const ZIP_IS_REQUIRED = "Zip is required";
 export const CITY_IS_REQUIRED = "City is required";
-export const PRODUCT_NOT_FOUND = "Product not found"
+export const PRODUCT_NOT_FOUND = "Product not found";
 export const QUANTITY_IS_NEGATIVE_OR_ZERO =
   "Quantity must be greater than zero";
 export const ITEMS_QUANTITY_NOT_VALID =
@@ -22,3 +22,6 @@ export const ADDRESS_IS_MANDATORY =
 export const PRODUCT_CREATED_EVENT = "ProductCreatedEvent";
 export const CUSTOMER_CREATED_EVENT = "CustomerCreatedEvent";
 export const CUSTOMER_CHANGED_ADDRESS_EVENT = "CustomerChangedAddressEvent";
+
+// notification contexts
+export const CUSTOMER_CONTEXT = "customer";
