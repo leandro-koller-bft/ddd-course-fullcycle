@@ -1,4 +1,9 @@
-import { CITY_IS_REQUIRED, NUMBER_IS_REQUIRED, STREET_IS_REQUIRED, ZIP_IS_REQUIRED } from "../../../../constants";
+import {
+  CITY_IS_REQUIRED,
+  NUMBER_IS_REQUIRED,
+  STREET_IS_REQUIRED,
+  ZIP_IS_REQUIRED,
+} from "../../../../constants";
 
 export default class Address {
   private _street: string;
