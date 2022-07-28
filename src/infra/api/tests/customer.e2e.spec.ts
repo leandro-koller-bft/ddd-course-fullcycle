@@ -1,5 +1,6 @@
 import { app, sequelize } from "../express";
 import request from "supertest";
+import { XML_HEADER } from "../../../constants";
 
 describe("E2E test for customer", () => {
   beforeEach(async () => {
@@ -70,10 +71,21 @@ describe("E2E test for customer", () => {
 
     const customer1 = listResponse.body.customers[0];
     const customer2 = listResponse.body.customers[1];
-    
+
     expect(customer1.name).toBe(name1);
     expect(customer2.name).toBe(name2);
     expect(customer1.address.street).toBe(address.street);
     expect(customer2.address.street).toBe(address.street);
+
+    const listResponseXml = await request(app)
+      .get("/customer")
+      .set("Accept", "application/xml")
+      .send();
+
+    expect(listResponseXml.status).toBe(200);
+    expect(listResponseXml.text).toContain(XML_HEADER);
+    expect(listResponseXml.text).toContain(`<customers>`);
+    expect(listResponseXml.text).toContain(`<name>John</name>`);
+    expect(listResponseXml.text).toContain(`<name>Jane</name>`);
   });
 });

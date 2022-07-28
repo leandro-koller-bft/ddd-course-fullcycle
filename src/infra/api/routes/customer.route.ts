@@ -4,6 +4,7 @@ import { InputListCustomerDto } from "../../../usecases/customer/list/list.custo
 import CreateCustomerUseCase from "../../../usecases/customer/create/create.customer.usecase";
 import ListCustomerUseCase from "../../../usecases/customer/list/list.customer.usecase";
 import CustomerRepository from "../../customer/sequelize/repositories/customer.repository";
+import CustomerPresenter from "../presenters/customer.presenter";
 
 export const customerRoute = express.Router();
 
@@ -35,7 +36,10 @@ customerRoute.get("/", async (req: Request, res: Response) => {
     const customerDto: InputListCustomerDto = {};
     const output = await usecase.execute(customerDto);
 
-    res.send(output);
+    res.format({
+      json: async () => res.send(output),
+      xml: async () => res.send(CustomerPresenter.listXml(output)),
+    });
   } catch (err) {
     res.status(400).send(err);
   }

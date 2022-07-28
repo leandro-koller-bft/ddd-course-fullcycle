@@ -27,3 +27,6 @@ export const CUSTOMER_CHANGED_ADDRESS_EVENT = "CustomerChangedAddressEvent";
 // notification contexts
 export const CUSTOMER_CONTEXT = "customer";
 export const PRODUCT_CONTEXT = "product";
+
+// misc
+export const XML_HEADER = `<?xml version="1.0" encoding="UTF-8"?>`;
