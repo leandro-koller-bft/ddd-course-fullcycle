@@ -6,6 +6,7 @@ import {
 } from "../../../constants";
 import Entity from "../../@shared/entity/entity.abstract";
 import NotificationError from "../../@shared/notification/notification.error";
+import ProductValidatorFactory from "../factory/product.validator.factory";
 import IProduct from "./product.interface";
 
 export default class Product extends Entity implements IProduct {
@@ -28,26 +29,8 @@ export default class Product extends Entity implements IProduct {
   }
 
   validate() {
-    if (this._id.length === 0) {
-      this.notification.addError({
-        context: PRODUCT_CONTEXT,
-        message: ID_IS_REQUIRED,
-      });
-    }
-
-    if (this._name.length === 0) {
-      this.notification.addError({
-        context: PRODUCT_CONTEXT,
-        message: NAME_IS_REQUIRED,
-      });
-    }
-
-    if (this._price < 0) {
-      this.notification.addError({
-        context: PRODUCT_CONTEXT,
-        message: PRICE_IS_NEGATIVE,
-      });
-    }
+    ProductValidatorFactory.create().validate(this);
+    this.checkErrors();
   }
 
   changeName(name: string) {

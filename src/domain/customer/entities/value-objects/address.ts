@@ -19,7 +19,6 @@ export default class Address implements IAddress {
     this._city = city;
     this.notification = new Notification();
     this.validate();
-    this.checkErrors();
   }
 
   checkErrors() {
@@ -30,6 +29,7 @@ export default class Address implements IAddress {
 
   validate() {
     AddressValidatorFactory.create().validate(this);
+    this.checkErrors();
   }
 
   toString(): string {

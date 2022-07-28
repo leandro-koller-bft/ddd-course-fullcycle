@@ -1,5 +1,6 @@
 // error messages
 export const ID_IS_REQUIRED = "Id is required";
+export const PRICE_IS_REQUIRED = "Price is required";
 export const CUSTOMER_ID_IS_REQUIRED = "CustomerId is required";
 export const NAME_IS_REQUIRED = "Name is required";
 export const PRICE_IS_NEGATIVE = "Price must be greater than zero";

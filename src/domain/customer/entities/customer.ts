@@ -1,7 +1,4 @@
-import {
-  ADDRESS_IS_MANDATORY,
-  CUSTOMER_CONTEXT,
-} from "../../../constants";
+import { ADDRESS_IS_MANDATORY, CUSTOMER_CONTEXT } from "../../../constants";
 import Entity from "../../@shared/entity/entity.abstract";
 import NotificationError from "../../@shared/notification/notification.error";
 import CustomerValidatorFactory from "../factory/customer.validator.factory";
@@ -19,7 +16,6 @@ export default class Customer extends Entity implements ICustomer {
     this._id = id;
     this._name = name;
     this.validate();
-    this.checkErrors();
   }
 
   checkErrors() {
@@ -29,7 +25,8 @@ export default class Customer extends Entity implements ICustomer {
   }
 
   validate() {
-    CustomerValidatorFactory.create().validate(this)
+    CustomerValidatorFactory.create().validate(this);
+    this.checkErrors();
   }
 
   changeName(name: string) {

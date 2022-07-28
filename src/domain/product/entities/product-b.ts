@@ -3,19 +3,22 @@ import {
   NAME_IS_REQUIRED,
   PRICE_IS_NEGATIVE,
 } from "../../../constants";
+import Entity from "../../@shared/entity/entity.abstract";
+import notification from "../../@shared/notification/notification";
 import IProduct from "./product.interface";
 
-export default class ProductB implements IProduct {
-  private _id: string;
+export default class ProductB extends Entity implements IProduct {
   private _name: string;
   private _price: number;
 
   constructor(id: string, name: string, price: number) {
+    super();
     this._id = id;
     this._name = name;
     this._price = price;
     this.validate();
   }
+  notification: notification;
 
   validate() {
     if (this._id.length === 0) {
