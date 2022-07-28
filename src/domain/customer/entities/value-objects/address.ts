@@ -1,43 +1,38 @@
-import {
-  CITY_IS_REQUIRED,
-  NUMBER_IS_REQUIRED,
-  STREET_IS_REQUIRED,
-  ZIP_IS_REQUIRED,
-} from "../../../../constants";
+import IAddress from "./address.interface";
+import Notification from "../../../@shared/notification/notification";
+import AddressValidatorFactory from "../../factory/address.validator.factory";
+import NotificationError from "../../../@shared/notification/notification.error";
+import { CUSTOMER_CONTEXT } from "../../../../constants";
 
-export default class Address {
+export default class Address implements IAddress {
   private _street: string;
   private _number: number;
   private _zip: string;
   private _city: string;
+
+  readonly notification: Notification;
 
   constructor(street: string, number: number, zip: string, city: string) {
     this._street = street;
     this._number = number;
     this._zip = zip;
     this._city = city;
+    this.notification = new Notification();
     this.validate();
+    this.checkErrors();
+  }
+
+  checkErrors() {
+    if (this.notification.hasErrors(CUSTOMER_CONTEXT)) {
+      throw new NotificationError(this.notification.errors);
+    }
   }
 
   validate() {
-    if (this._street.length === 0) {
-      throw new Error(STREET_IS_REQUIRED);
-    }
-
-    if (this._number === 0) {
-      throw new Error(NUMBER_IS_REQUIRED);
-    }
-
-    if (this._zip.length === 0) {
-      throw new Error(ZIP_IS_REQUIRED);
-    }
-
-    if (this._city.length === 0) {
-      throw new Error(CITY_IS_REQUIRED);
-    }
+    AddressValidatorFactory.create().validate(this);
   }
 
-  toString() {
+  toString(): string {
     return `${this._street}, ${this._number}, ${this._zip}, ${this._city}`;
   }
 
